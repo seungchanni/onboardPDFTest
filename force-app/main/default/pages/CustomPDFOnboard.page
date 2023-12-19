@@ -1,7 +1,46 @@
 <apex:page standardController="Account" renderAs="pdf" >
-    <table>
+    <table style="font-family:sans-serif; padding-bottom:30px;">
         <tr>
-        	<td></td>
+        	<td><apex:image id="logo2" value="{!$Resource.logo2}" width="60" height="60"/></td>
+            <td style="font:24pt; padding-left:10px; padding-right:250px;">Salesfofrce Atlas</td>
+            <td style="font:24pt;">INVOICE</td>
+        </tr>
+    </table>
+
+    <table style="border:0.5px sloid #fff; font-family:sans-serif;">
+        <tr>
+            <td style="padding-right:450px"><apex:outputField value="{!Account.BillingStreet}"/></td>
+            <td style="text-align:right; padding-right:20px">Date</td>
+            <td style="text-align:right;"><apex:outputText value={!DAY(TODAY())}-{!MONTH(TODAY())}-{!YEAR(TODAY())}/></td>
+        </tr>
+        <tr>
+            <td><apex:outputField value="{!Account.BillingCity}"/>, <span><apex:outputField value="{!Account.BillingPostalCode}"/></span></td>
+            <td style="text-align:right; padding-right:20px">Invoice</td>
+            <td style="text-align:right;">[<apex:outputText value="{!Account.Invoice_Number__c}"/>]</td>
+        </tr>
+        <tr>
+            <td><apex:outputField value="{!Account.Phone}"/></td>
+            <td style="text-align:right; padding-right:20px;">Due Date</td>
+            <td style="text-align:right;"><apex:outputText value="{!DAY(Account.Due_Date__c)}-{!YEAR(Account.Due_Datae__c)}"/></td>
+        </tr>
+        <tr>
+            <td><apex:outputField value="{!Account.Email__c}"/></td>
+        </tr>
+        <tr>
+            <td><apex:outputField value="{!Account.Website}"/></td>
+        </tr>
+    </table>
+    <br>
+    <table style="borfer:0.5px solid #fff; font-family:sans-serif;">
+        <tr style="color:fff background-color:dimgray">
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr><tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr><tr>
             <td></td>
             <td></td>
             <td></td>
