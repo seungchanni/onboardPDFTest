@@ -1,0 +1,10 @@
+<apex:page standardController="Account" renderAs="pdf" >
+    <table>
+        <tr>
+        	<td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</apex:page>
