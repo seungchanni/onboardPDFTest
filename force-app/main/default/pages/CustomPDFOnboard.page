@@ -1,4 +1,4 @@
-<apex:page standardController="Account" renderAs="pdf" >
+<apex:page standardController="Quote" renderAs="pdf" >
     <table style="font-family:sans-serif; padding-bottom:30px;">
         <tr>
         	<td><apex:image id="logo2" value="{!$Resource.logo2}" width="60" height="60"/></td>
@@ -6,31 +6,32 @@
             <td style="font:24pt;">INVOICE</td>
         </tr>
     </table>
-
+    <!---->
     <table style="border:0.5px sloid #fff; font-family:sans-serif;">
         <tr>
-            <td style="padding-right:450px;"><apex:outputField value="{!Account.BillingStreet}"/></td>
-            <td style="text-align:right; padding-right:20px">Date</td>
-            <td style="text-align:right;"><apex:outputText value={!DAY(TODAY())}-{!MONTH(TODAY())}-{!YEAR(TODAY())}/></td>
+            <td style="padding-right:450px;"><apex:outputField value="{!Quote.QuoteToName}"/></td>
+            <td style="text-align:right; padding-right:20px">날짜 :</td>
+            <td style="text-align:right;"><apex:outputText value={!YEAR(TODAY())}-{!MONTH(TODAY())}-{!DAY(TODAY())}/></td>
         </tr>
         <tr>
-            <td><apex:outputField value="{!Account.BillingCity}"/>, <span><apex:outputField value="{!Account.BillingPostalCode}"/></span></td>
-            <td style="text-align:right; padding-right:20px">Invoice</td>
-            <td style="text-align:right;">[<apex:outputText value="{!Account.Invoice_Number__c}"/>]</td>
+            <td><apex:outputField value="{!Quote.BillingAddress}"/>, <span><apex:outputField value="{!Quote.QuoteToAddress}"/></span></td>
+            <td style="text-align:right; padding-right:20px">견적서 번호 :</td>
+            <td style="text-align:right;">[<apex:outputText value="{!Quote.QuoteNumber}"/>]</td>
         </tr>
         <tr>
-            <td><apex:outputField value="{!Account.Phone}"/></td>
+            <td><apex:outputField value="{!Quote.Phone}"/></td>
             <td style="text-align:right; padding-right:20px;">Due Date</td>
             <td style="text-align:right;"><apex:outputText value="{!DAY(Account.Due_Date__c)}-{!YEAR(Account.Due_Datae__c)}"/></td>
         </tr>
         <tr>
-            <td><apex:outputField value="{!Account.Email__c}"/></td>
+            <td><apex:outputField value="{!Quote.Email}"/></td>
         </tr>
         <tr>
-            <td><apex:outputField value="{!Account.Website}"/></td>
+            <td><apex:outputField value="{!Quote.Fax}"/></td>
         </tr>
     </table>
     <br>
+    <!-- 청구대상 배송지-->
     <table style="borfer:0.5px solid #fff; font-family:sans-serif;">
         <tr style="color:fff; background-color:dimgray;">
             <th style="padding-left:5px padding-right:170px;">BILL TO</th>
@@ -38,32 +39,30 @@
             <th style="padding-left:5px padding-right:170px;">SHIP TO</th>
         </tr>
         <tr>
-            <td style="pdding-left:5px;"><apex:outputField value="{!Account.Primary_Sales_Contact__c}"/></td>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Quote.BillingName}"/></td>
             <td></td>
-            <td style="pdding-left:5px;"><apex:outputField value="{!Account.Primary_Sales_Contact__c}"/></td>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Quote.ShippingName}"/></td>
         </tr>
         <tr>
-            <td style="pdding-left:5px;"><apex:outputField value="{!Account.Name}"/></td>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Quote.Name}"/></td>
             <td></td>
-            <td style="pdding-left:5px;"><apex:outputField value="{!Account.Name}"/></td>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Quote.Name}"/></td>
         </tr>
         <tr>
-            <td style="pdding-left:5px;"><apex:outputField value="{!Account.BillingStreet}"/></td>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Quote.BillingAddress}"/></td>
             <td></td>
-            <td style="pdding-left:5px;"><apex:outputField value="{!Account.BillingStreet}"/></td>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Quote.ShippingAddress}"/></td>
         </tr>
+        <!--
         <tr>
-            <td style="pdding-left:5px;"><apex:outputField value="{!Account.BillingCity}"/>, <span><apex:outputField value="{!Account.BillingPstalCode}"/></span></td>
-            <td></td>
-            <td style="pdding-left:5px;"><apex:outputField value="{!Account.BillingCity}"/>, <span><apex:outputField value="{!Account.BillingPstalCode}"/></span></td>
-        </tr>
-        <tr>
-            <td style="pdding-left:5px;"><apex:outputField value="{!Account.Primary_Sales_Phone__c}"/></td>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Quote.Phone}"/></td>
             <td></td>
             <td style="pdding-left:5px;"><apex:outputField value="{!Account.Primary_Sales_Phone__c}"/></td>
         </tr>
+    -->
     </table>
     <br>
+    <!-- 상품 정보들 -->
     <table style="font-family:sans-serif;">
         <tr style="color:#fff; background-color:dimgray;">
             <th style="padding-left:5px; padding-right:380px;">Description</th>
@@ -71,6 +70,16 @@
             <th style="text-align:right; padding-left:15px; padding-right:5px;">Unit Price</th>
             <th style="text-align:right; padding-left:15px; padding-right:5px;">Amount</th>
         </tr>
+        <apex:repeat value="{!Quote.QuoteLineItem}" var="LineItem">
+            <tr>
+                <td style="padding-left:5px;"><apex:outputField value="{!LineItem.Image__c}"/></td>
+                <td style="text-align:center;"><apex:outputField value="{!LineItem.Product2Id}"/></td>
+                <td style="text-align:center;"><apex:outputField value="{!LineItem.Quantity}"/></td>
+                <td style="text-align:right; padding-right:5px"><apex:outputField value="{!Subtotal}"/></td>
+                <td style="text-align:right; padding-right:5px"><apex:outputField value="{!LineItem.TotalPrice}"/></td>
+            </tr>
+        </apex:repeat>
+        <!--
         <tr>
             <td style="padding-left:5px;"><apex:outputField value="{!Account.Product_1__c}"/></td>
             <td style="text-align:center;"><apex:outputField value="{!Account.Product_1_Quantity__c}"/></td>
@@ -89,11 +98,13 @@
             <td style="text-align:right; padding-right:5px"><apex:outputField value="{!Account.Labor_Coat__c}"/></td>
             <td style="text-align:right; padding-right:5px"><apex:outputField value="{!Account.Labor_Sum__c}"/></td>
         </tr>
+    -->
     </table>
     <br>
+    <!-- 설명서 -->
     <table style="border:0.5px sloid #000; border-top:none; font-family:sans-serif;">
         <tr>
-            <td style="padding-left:5px; padding-right:400px; background-color:dimgray; color:#fff;">COMMENTS</td>
+            <td style="padding-left:5px; padding-right:400px; background-color:dimgray; color:#fff;">설명</td>
         </tr>
         <tr>
             <td style="padding-left:5px;">설명</td>
@@ -107,23 +118,24 @@
         <tr>
             <td style="padding-left:5px;">설명</td>
         </tr>
+    <!-- 가격 -->
     </table>
     <table style="margin-left:530px; margin-top:-190px; z-index:1; font-family:sans-serif;">
         <tr>
-            <td style="padding-right:20px; text-align:right;">Subtotal</td>
-            <td style="text-align:right;"><apex:outputField value="{!Account.Subtotal__c}"/></td>
+            <td style="padding-right:20px; text-align:right;">소계</td>
+            <td style="text-align:right;"><apex:outputField value="{!Quote.Subtotal}"/></td>
         </tr>
         <tr>
-            <td style="padding-right:20px; text-align:right;">Discounts</td>
-            <td style="text-align:right;"><apex:outputField value="{!Account.Discounts__c}"/></td>
+            <td style="padding-right:20px; text-align:right;">할인</td>
+            <td style="text-align:right;"><apex:outputField value="{!Quote.Discount}"/></td>
         </tr>
         <tr>
-            <td style="padding-right:20px; text-align:right;">Taxes</td>
-            <td style="text-align:right;"><apex:outputField value="{!Account.Taxes__c}"/></td>
+            <td style="padding-right:20px; text-align:right;">총가격</td>
+            <td style="text-align:right;"><apex:outputField value="{!Quote.TotalPrice}"/></td>
         </tr>
         <tr>
-            <td style="padding-right:20px; text-align:right;">Total</td>
-            <td style="text-align:right;"><apex:outputField value="{!Account.Total__c}"/></td>
+            <td style="padding-right:20px; text-align:right;">총계</td>
+            <td style="text-align:right;"><apex:outputField value="{!Quote.GrandTotal}"/></td>
         </tr>
     </table>
     <table style="margin-left:570px; padding-top:40px; z-index:1; color:dimgray; font-family:sans-serif;">
