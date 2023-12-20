@@ -9,7 +9,7 @@
 
     <table style="border:0.5px sloid #fff; font-family:sans-serif;">
         <tr>
-            <td style="padding-right:450px"><apex:outputField value="{!Account.BillingStreet}"/></td>
+            <td style="padding-right:450px;"><apex:outputField value="{!Account.BillingStreet}"/></td>
             <td style="text-align:right; padding-right:20px">Date</td>
             <td style="text-align:right;"><apex:outputText value={!DAY(TODAY())}-{!MONTH(TODAY())}-{!YEAR(TODAY())}/></td>
         </tr>
@@ -32,18 +32,103 @@
     </table>
     <br>
     <table style="borfer:0.5px solid #fff; font-family:sans-serif;">
-        <tr style="color:fff background-color:dimgray">
+        <tr style="color:fff; background-color:dimgray;">
+            <th style="padding-left:5px padding-right:170px;">BILL TO</th>
+            <th style="background-color:#fff;">BlANK COL</th>
+            <th style="padding-left:5px padding-right:170px;">SHIP TO</th>
+        </tr>
+        <tr>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Account.Primary_Sales_Contact__c}"/></td>
             <td></td>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Account.Primary_Sales_Contact__c}"/></td>
+        </tr>
+        <tr>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Account.Name}"/></td>
             <td></td>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Account.Name}"/></td>
+        </tr>
+        <tr>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Account.BillingStreet}"/></td>
             <td></td>
-        </tr><tr>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Account.BillingStreet}"/></td>
+        </tr>
+        <tr>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Account.BillingCity}"/>, <span><apex:outputField value="{!Account.BillingPstalCode}"/></span></td>
             <td></td>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Account.BillingCity}"/>, <span><apex:outputField value="{!Account.BillingPstalCode}"/></span></td>
+        </tr>
+        <tr>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Account.Primary_Sales_Phone__c}"/></td>
             <td></td>
-            <td></td>
-        </tr><tr>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td style="pdding-left:5px;"><apex:outputField value="{!Account.Primary_Sales_Phone__c}"/></td>
+        </tr>
+    </table>
+    <br>
+    <table style="font-family:sans-serif;">
+        <tr style="color:#fff; background-color:dimgray;">
+            <th style="padding-left:5px; padding-right:380px;">Description</th>
+            <th style="text-align:center; padding-left:5px; padding-right:5px;">Qty</th>
+            <th style="text-align:right; padding-left:15px; padding-right:5px;">Unit Price</th>
+            <th style="text-align:right; padding-left:15px; padding-right:5px;">Amount</th>
+        </tr>
+        <tr>
+            <td style="padding-left:5px;"><apex:outputField value="{!Account.Product_1__c}"/></td>
+            <td style="text-align:center;"><apex:outputField value="{!Account.Product_1_Quantity__c}"/></td>
+            <td style="text-align:right; padding-right:5px"><apex:outputField value="{!Account.Price_1__c}"/></td>
+            <td style="text-align:right; padding-right:5px"><apex:outputField value="{!Account.Product_1_Sum__c}"/></td>
+        </tr>
+        <tr>
+            <td style="padding-left:5px;"><apex:outputField value="{!Account.Product_2__c}"/></td>
+            <td style="text-align:center;"><apex:outputField value="{!Account.Product_2_Quantity__c}"/></td>
+            <td style="text-align:right; padding-right:5px"><apex:outputField value="{!Account.Price_2__c}"/></td>
+            <td style="text-align:right; padding-right:5px"><apex:outputField value="{!Account.Product_2_Sum__c}"/></td>
+        </tr>
+        <tr>
+            <td style="padding-left:5px;"><apex:outputField value="{!Account.Labor__c}"/></td>
+            <td style="text-align:center;"><apex:outputField value="{!Account.Labor_Quantity__c}"/></td>
+            <td style="text-align:right; padding-right:5px"><apex:outputField value="{!Account.Labor_Coat__c}"/></td>
+            <td style="text-align:right; padding-right:5px"><apex:outputField value="{!Account.Labor_Sum__c}"/></td>
+        </tr>
+    </table>
+    <br>
+    <table style="border:0.5px sloid #000; border-top:none; font-family:sans-serif;">
+        <tr>
+            <td style="padding-left:5px; padding-right:400px; background-color:dimgray; color:#fff;">COMMENTS</td>
+        </tr>
+        <tr>
+            <td style="padding-left:5px;">설명</td>
+        </tr>
+        <tr>
+            <td style="padding-left:5px;">설명</td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td style="padding-left:5px;">설명</td>
+        </tr>
+    </table>
+    <table style="margin-left:530px; margin-top:-190px; z-index:1; font-family:sans-serif;">
+        <tr>
+            <td style="padding-right:20px; text-align:right;">Subtotal</td>
+            <td style="text-align:right;"><apex:outputField value="{!Account.Subtotal__c}"/></td>
+        </tr>
+        <tr>
+            <td style="padding-right:20px; text-align:right;">Discounts</td>
+            <td style="text-align:right;"><apex:outputField value="{!Account.Discounts__c}"/></td>
+        </tr>
+        <tr>
+            <td style="padding-right:20px; text-align:right;">Taxes</td>
+            <td style="text-align:right;"><apex:outputField value="{!Account.Taxes__c}"/></td>
+        </tr>
+        <tr>
+            <td style="padding-right:20px; text-align:right;">Total</td>
+            <td style="text-align:right;"><apex:outputField value="{!Account.Total__c}"/></td>
+        </tr>
+    </table>
+    <table style="margin-left:570px; padding-top:40px; z-index:1; color:dimgray; font-family:sans-serif;">
+        <tr>
+            <td>Thank you for your business!</td>
         </tr>
     </table>
 </apex:page>
