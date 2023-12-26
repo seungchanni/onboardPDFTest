@@ -1,8 +1,8 @@
-<apex:page standardController="Quote" renderAs="pdf" >
+<apex:page standardController="Quote" renderAs="pdf" extensions="savePDFController" applyBodyTag="false">
     <table style="font-family:Arial Unicode MS; padding-bottom:30px;">
         <tr>
         	<td><apex:image value="{!$Resource.LogoImg}" width="80" height="80"/></td>
-            <td style="font:24pt; padding-left:30px; padding-right:300px;">로지텍</td>
+            <td style="font:24pt; padding-left:30px; padding-right:280px;">Logitech</td>
             <td style="font:24pt;">견적서 PDF</td>
         </tr>
     </table>
@@ -27,9 +27,10 @@
         </tr>
     </table>
     <br></br>
+    <br></br>
     <!-- 청구대상 배송지-->
     <table style="font-family:Arial Unicode MS; width:100%;">
-        <tr style="color:#fff; background-color:#8fb7b9;">
+        <tr style="color:#fff; background-color:#00B8FB;">
             <th style="text-align:left; padding-left:10px; width:45%;">청구 대상</th>
             <th style="width:10%; background-color:#fff"></th>
             <th style="text-align:left; padding-left:10px; width:45%;">배송 정보</th>
@@ -42,39 +43,40 @@
         <tr>
             <td style="padding-left:10px;"><apex:outputField value="{!Quote.Name}"/></td>
             <td></td>
-            <td style="text-align:left; padding-left:10px;"><apex:outputField value="{!Quote.Name}"/></td>
+            <td style="text-align:left; padding-left:10px;"><apex:outputField value="{!Quote.ShippingStreet}"/></td>
         </tr>
         <tr>
             <td style="padding-left:10px;"><apex:outputField value="{!Quote.BillingStreet}"/></td>
             <td></td>
-            <td style="text-align:left; padding-left:10px;"><apex:outputField value="{!Quote.ShippingStreet}"/></td>
+            <td></td>
         </tr>
     </table>
     <br></br>
+    <br></br>
     <!-- 상품 정보들 -->
-    <table style="font-family:Arial Unicode MS; width:100%;">
-        <tr style="color:#fff; background-color:#8fb7b9;">
-            <th style="text-align:center; padding-left:5px; padding-right:10px;">이미지</th>
-            <th style="text-align:center; padding-left:5px; padding-right:5px;">상품 이름</th>
-            <th style="text-align:center; padding-left:15px; padding-right:15px;">가격</th>
-            <th style="text-align:center; padding-left:15px; padding-right:15px;">수량</th>
-            <th style="text-align:center; padding-left:15px; padding-right:15px;">상품 소계</th>
+    <table style="font-family:Arial Unicode MS; width:100%; text-align:center;">
+        <tr style="color:#fff; background-color:#00B8FB;">
+            <th style="padding-left:5px; padding-right:10px;">이미지</th>
+            <th style="padding-left:5px; padding-right:5px;">상품 이름</th>
+            <th style="padding-left:15px; padding-right:15px;">가격</th>
+            <th style="padding-left:15px; padding-right:15px;">수량</th>
+            <th style="padding-left:15px; padding-right:15px;">소계</th>
         </tr>
         <apex:repeat value="{!Quote.QuoteLineItems}" var="LineItem">
             <tr>
-                <td style="padding-left:5px; padding-right:5px;"><apex:outputField value="{!LineItem.Image__c}"/></td>
-                <td style="text-align:center;"><apex:outputField value="{!LineItem.Product2.Name}"/></td>
-                <td style="text-align:center;"><apex:outputField value="{!LineItem.UnitPrice}"/></td>
-                <td style="text-align:right; padding-right:15px"><apex:outputField value="{!LineItem.Quantity}"/></td>
-                <td style="text-align:right; padding-right:15px"><apex:outputField value="{!LineItem.Subtotal}"/></td>
+                <td style="padding-left:5px; padding-right:5px; border:0.5px solid #00B8FB;"><apex:outputField value="{!LineItem.Image__c}"/></td>
+                <td style="border:0.5px solid #00B8FB;"><apex:outputField value="{!LineItem.Product2.Name}"/></td>
+                <td style="border:0.5px solid #00B8FB;"><apex:outputField value="{!LineItem.UnitPrice}"/></td>
+                <td style="border:0.5px solid #00B8FB;"><apex:outputText value="{0, number, 0개}"><apex:param value="{!LineItem.Quantity}"/></apex:outputText></td>
+                <td style="border:0.5px solid #00B8FB;"><apex:outputField value="{!LineItem.Subtotal}"/></td>
             </tr>
         </apex:repeat>
     </table>
     <br></br>
     <!-- 설명서 -->
-    <table style="border:0.5px solid #000; font-family:Arial Unicode MS; width:100%">
+    <table style="border:0.5px solid #00B8FB; font-family:Arial Unicode MS; width:100%">
         <tr>
-            <td style="padding-left:200px; text-align:left; padding-left:15px; background-color:#8fb7b9; color:#fff;">설명</td>
+            <td style="padding-left:200px; text-align:left; padding-left:15px; background-color:#00B8FB; color:#fff;">설명</td>
         </tr>
         <tr>
             <td style="padding-left:5px;">1. 제품과 수량을 확인해주세요. </td>
@@ -91,10 +93,10 @@
     </table>
     <br></br>
     <!-- 가격 -->
-    <table style="border:0.5px solid #000; font-family:Arial Unicode MS; width:50%">
+    <table style="border:0.5px solid #00B8FB; font-family:Arial Unicode MS; width:50%">
         <tr>
-            <td style="background-color:#8fb7b9;"></td>
-            <td style="text-align:center; background-color:#8fb7b9; color:#fff;">합계</td>
+            <td style="background-color:#00B8FB;"></td>
+            <td style="text-align:center; background-color:#00B8FB; color:#fff;">합계</td>
         </tr>
         <tr>
             <td style="padding-right:20px; text-align:right;">소계</td>
